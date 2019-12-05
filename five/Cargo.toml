@@ -1,0 +1,8 @@
+[package]
+name = "five"
+version = "0.1.0"
+authors = ["Josh Morrow <josh@jcmorrow.com>"]
+edition = "2018"
+
+[dependencies]
+two = {path = "../two"}

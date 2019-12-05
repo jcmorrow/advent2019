@@ -73,7 +73,7 @@ mod tests {
         let wire2 = "U62,R66,U55,R34,D71,R55,D58,R83";
 
         let intersection = closest_intersection(wire1, wire2);
-        assert_eq!(intersection.0 + intersection.1, 159);
+        assert_eq!(intersection.0 + intersection.1, 146);
     }
 
     #[test]
@@ -82,7 +82,7 @@ mod tests {
         let wire2 = "U98,R91,D20,R16,D67,R40,U7,R15,U6,R7";
 
         let intersection = closest_intersection(wire1, wire2);
-        assert_eq!(intersection.0 + intersection.1, 135);
+        assert_eq!(intersection.0 + intersection.1, 154);
     }
 
     #[test]
