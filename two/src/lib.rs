@@ -108,7 +108,6 @@ impl Instructions {
                     let destination = self.peek(1);
                     println!("Please input something");
                     io::stdin().read_line(&mut input).unwrap();
-                    println!("input: {}", input);
                     match input.trim().parse::<i32>() {
                         Ok(x) => self.write(destination, x),
                         Err(err) => {
@@ -121,6 +120,47 @@ impl Instructions {
                     println!("{}", self.peek_at(self.peek(1)));
                     self.move_head(2);
                 }
+                (5, parameter_modes) => {
+                    let x = self.parameter_from(self.peek(1), parameter_modes.get(0));
+                    if x == 0 {
+                        self.move_head(3);
+                    } else {
+                        let y = self.parameter_from(self.peek(2), parameter_modes.get(1));
+                        self.head = y as usize;
+                    }
+                }
+                (6, parameter_modes) => {
+                    let x = self.parameter_from(self.peek(1), parameter_modes.get(0));
+                    if x == 0 {
+                        let y = self.parameter_from(self.peek(2), parameter_modes.get(1));
+                        self.head = y as usize;
+                    } else {
+                        self.move_head(3);
+                    }
+                }
+                (7, parameter_modes) => {
+                    let destination = self.peek(3);
+                    let x = self.parameter_from(self.peek(1), parameter_modes.get(0));
+                    let y = self.parameter_from(self.peek(2), parameter_modes.get(1));
+                    if x < y {
+                        self.write(destination, 1);
+                    } else {
+                        self.write(destination, 0);
+                    }
+                    self.move_head(4);
+                }
+                (8, parameter_modes) => {
+                    let destination = self.peek(3);
+                    let x = self.parameter_from(self.peek(1), parameter_modes.get(0));
+                    let y = self.parameter_from(self.peek(2), parameter_modes.get(1));
+                    if x == y {
+                        self.write(destination, 1);
+                    } else {
+                        self.write(destination, 0);
+                    }
+                    self.move_head(4);
+                }
+
                 (99, _) => break,
                 (opcode, _) => panic!("Not a valid OpCode: {}", opcode),
             }
